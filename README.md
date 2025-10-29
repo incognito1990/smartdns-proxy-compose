@@ -33,7 +33,7 @@ docker run -it --rm   -p 80:80   -v "$(pwd)/letsencrypt:/etc/letsencrypt"   cert
 Пример:
 ```bash
 cp configs/dnsmasq/dnsmasq.template.conf configs/dnsmasq/dnsmasq.conf
-sed -i 's|<REDIRECT_IP>|203.0.113.5|g' configs/dnsmasq/dnsmasq.conf
+sed -i 's|<REDIRECT_IP>|12.34.56.78|g' configs/dnsmasq/dnsmasq.conf  # замени IP-адрес на свой
 ```
 
 3) Обнови `configs/nginx/nginx.conf`: замени `<YOUR_DOT_DOMAIN>` на реальный DoT‑домен.
