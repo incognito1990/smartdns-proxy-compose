@@ -1,0 +1,11 @@
+# локальная среда
+.env
+
+# сертификаты/ключи (не коммитим)
+letsencrypt/*
+!letsencrypt/.gitkeep
+
+# системные
+dist/
+node_modules/
+.DS_Store

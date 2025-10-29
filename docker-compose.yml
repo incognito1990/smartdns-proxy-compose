@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    restart: unless-stopped
+    ports:
+      - "${NGINX_HTTP_PORT:-80}:80"       # HTTP → redirect to HTTPS
+      - "${NGINX_HTTPS_PORT:-443}:443"    # HTTPS / SNI proxy
+      - "${DNS_OVER_TLS_PORT:-853}:853"  # DNS-over-TLS (DoT)
+    volumes:
+      - ./configs/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./letsencrypt/:/etc/letsencrypt/:ro   # маппим весь каталог LE для корректных симлинков
+    networks:
+      - smartdns
+
+  dnsmasq:
+    container_name: dnsmasq
+    image: jpillora/dnsmasq
+    restart: always
+    volumes:
+      - ./configs/dnsmasq/dnsmasq.conf:/etc/dnsmasq.conf:ro
+    networks:
+      - smartdns
+
+networks:
+  smartdns:
+    driver: bridge
